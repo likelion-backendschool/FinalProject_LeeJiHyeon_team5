@@ -1,0 +1,66 @@
+<table>
+    <thead>
+    <tr>
+        <th>글 번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일시</th>
+        <th>수정날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.postId}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.username}"></td>
+        <td th:text="${post.createdAt}"></td>
+        <td th:text="${post.updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+
+
+<!--<div class="app container p-4 px-4 shadow-lg">-->
+<!--    <div class="container my-3"></div>-->
+<!--    <p class="mx-3">게시글 리슽트</p>-->
+
+<!--    <div class="d-flex justify-content-end my-2">-->
+
+<!--        <table class="table">-->
+<!--            <thead></thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="post, loop : ${posts}">-->
+<!--                <div class="card my-3">-->
+<!--                    <div class="card-header" th:onclick="|location.href='@{|/post/${post.postId}/detail|}'|" style="cursor:pointer; font-size: large">-->
+<!--                        <span th:text="${post.title}"></span>-->
+<!--                    </div>-->
+
+<!--                    <div class="card-body">-->
+<!--                        <blockquote class="blockquote mb-0">-->
+<!--                            <div style="width: auto; text-overflow: ellipsis;  overflow: hidden;   display: -webkit-box; white-space:pre-wrap;-->
+<!--                                     -webkit-box-orient: vertical; -webkit-line-clamp: 5; line-height: 160%; height: 0.8em*1.6*5; font-size: 0.8em"  th:text="${post.content}"></div>-->
+
+<!--                            <span class="badge bg-light text-dark p-2 " style="float:left" th:text="${post.username}"></span>-->
+
+<!--                            <span style="float:right">-->
+
+<!--                                </span>-->
+<!--                        </blockquote>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</html>-->

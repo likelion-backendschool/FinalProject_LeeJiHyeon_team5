@@ -34,8 +34,8 @@ public class Post {
     private LocalDateTime updatedAt;
 
 
-    @Column(name = "member_id")
-    private Long memberId;  // 회원번호
+    @Column(name = "user_name")
+    private String username;  // 회원번호
 
 
     @Column(name = "title")

@@ -76,7 +76,7 @@ public class MemberController {
         String username = memberService.findUsernameByEmail(email);
         model.addAttribute("msg", "회원님의 아이디는 " + username + "입니다.");
 
-        return "member/alert";
+        return "/alert";
     }
 
 
