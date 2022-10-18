@@ -10,6 +10,7 @@ public class PostForm {
 
     private String title;
     private String content;
+    private String keyword;
     private String username;
 
 }

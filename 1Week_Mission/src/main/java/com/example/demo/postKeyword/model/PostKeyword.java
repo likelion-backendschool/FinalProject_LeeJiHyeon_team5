@@ -1,5 +1,4 @@
-package com.example.demo.post.model;
-
+package com.example.demo.postKeyword.model;
 
 import com.example.demo.postHashTag.model.PostHashTag;
 import lombok.*;
@@ -9,20 +8,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "posts")
-public class Post {
+@Table(name = "postKeyword")
+public class PostKeyword {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private Long postId;
+    @Column(name = "keyword_id")
+    private Long keywordId;
 
     @Setter
     @CreationTimestamp
@@ -34,19 +32,9 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
 
-    @Column(name = "user_name")
-    private String username;  // 회원번호
-
-
-    @Column(name = "title")
-    private String title;
-
-    @Column(name = "content",columnDefinition = "TEXT")
-    private String content;  // 마크다운
-
-    @Column(name = "keyword")
-    private String keyword;
 
 
 }
