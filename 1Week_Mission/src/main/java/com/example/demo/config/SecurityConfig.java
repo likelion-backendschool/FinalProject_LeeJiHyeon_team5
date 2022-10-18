@@ -28,13 +28,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/member/user/**").authenticated()
-                .antMatchers("/member/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/member/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/post/*/modify").authenticated()
+                .antMatchers("/post/*/delete").authenticated()
+                .antMatchers("/product/*/modify").authenticated()
+                .antMatchers("/product/*/delete").authenticated()
                 .anyRequest().permitAll()  // 이제 서버 실행 후 로그인을 안 해도 페이지 들어가짐
                 .and()
                 .formLogin()
-                .loginPage("/loginForm")  // 로그인이 필요하면 이동하는 페이지
+                .loginPage("/member/login")  // 로그인이 필요하면 이동하는 페이지
                 .loginProcessingUrl("/login") // 로그인 페이지가 호출되면 시큐리티가 로그인 처리해준다. 컨트롤러에서 /login로직 짤 필요가 없다.
                 .defaultSuccessUrl("/")
                 .and()

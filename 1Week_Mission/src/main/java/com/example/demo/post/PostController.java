@@ -46,7 +46,8 @@ public class PostController {
 
     @PostAuthorize("hasRole('ROLE_ADMIN') or #postForm.username == authentication.principal.username")
     @GetMapping("/{id}/modify")
-    public String postModifyGet(@PathVariable long id, PostForm postForm, Model model) {
+    public String postModifyGet(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable long id, PostForm postForm, Model model) {
+
         Post post = postService.getPost(id);
         System.out.println(id);
         postForm.setTitle(post.getTitle());
