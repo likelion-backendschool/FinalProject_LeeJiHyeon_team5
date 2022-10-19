@@ -30,9 +30,10 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/post/*/modify").authenticated()
                 .antMatchers("/post/*/delete").authenticated()
+                .antMatchers("/member/modify*").authenticated()
                 .antMatchers("/product/*/modify").authenticated()
                 .antMatchers("/product/*/delete").authenticated()
-                .anyRequest().permitAll()  // 이제 서버 실행 후 로그인을 안 해도 페이지 들어가짐
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/member/login")  // 로그인이 필요하면 이동하는 페이지
@@ -45,19 +46,6 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/"); // 로그아웃 성공 후 이동페이지
 
         return http.build();
-    }
-
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        WebSecurityCustomizer web = new WebSecurityCustomizer() {
-
-            @Override
-            public void customize(WebSecurity web) {
-                web.ignoring().antMatchers("/tistory/css/**", "/tistory/image/**", "/tistory/js/**");
-            }
-
-        };
-
-        return web;
     }
 
 }
