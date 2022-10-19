@@ -41,7 +41,6 @@ public class MemberController {
     @PostMapping("/modify")
     public String modifyPost(@AuthenticationPrincipal PrincipalDetails principalDetails, ModifyForm modifyForm){
         memberService.modify(principalDetails,modifyForm);
-        System.out.println(principalDetails);
         return  "redirect:/";
     }
     @GetMapping("modifyPassword")

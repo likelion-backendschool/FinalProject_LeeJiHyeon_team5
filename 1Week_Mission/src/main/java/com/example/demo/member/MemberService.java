@@ -39,7 +39,11 @@ public class MemberService {
         Member member = principalDetails.getMember();
         member.setEmail(modifyForm.getEmail());
         member.setNickName(modifyForm.getNickName());
+        member.setRole("ROLE_AUTHOR");
 
+        if(member.getNickName().length() == 0){
+            member.setRole("ROLE_USER");
+        }
         memberRepository.save(member);
 
     }

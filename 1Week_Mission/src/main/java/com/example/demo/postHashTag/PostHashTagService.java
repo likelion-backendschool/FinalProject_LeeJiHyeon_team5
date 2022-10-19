@@ -39,12 +39,6 @@ public class PostHashTagService {
             return opHashTag.get();
         }
 
-//        PostHashTag posthashTag = PostHashTag.builder()
-//                .post(post)
-//                .postkeyword(postkeyword)
-//                .build();
-
-
         PostHashTag posthashTag = new PostHashTag();
         posthashTag.setPost(post);
         posthashTag.setPostkeyword(postkeyword);

@@ -24,6 +24,7 @@ public class PostService {
 
        post.setTitle(postForm.getTitle());
        post.setContent(postForm.getContent());
+       post.setKeyword(postForm.getKeyword());
        post.setUsername(principalDetails.getUsername());
 
         posthashTagService.applyHashTags(post, hashTagsStr);

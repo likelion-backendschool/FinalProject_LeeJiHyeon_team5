@@ -4,7 +4,6 @@ import com.example.demo.base.Base;
 import com.example.demo.post.model.Post;
 import com.example.demo.postKeyword.model.PostKeyword;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 
 @Entity
@@ -19,7 +18,6 @@ public class PostHashTag extends Base {
     @Column(name = "hashtag_id")
     private Long hashtagId;
 
-
     @Column(name = "content")
     private Long memberId;
 
@@ -33,7 +31,6 @@ public class PostHashTag extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_post_id")
     private Post post;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "postkeyword_keyword_id")
