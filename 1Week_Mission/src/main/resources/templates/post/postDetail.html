@@ -1,21 +1,24 @@
-<html   xmlns:th="http://thymeleaf.org">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
-
-
-<div class="d-flex justify-content-end my-2">
-    </div>
-    <h4 class="py-2" th:text="${post.title}"></h4>
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="badge bg-light text-dark p-2 text-start">
-                <span class="h6" th:text="|작성자 : ${post.username}|"></span>
-            </div>
-            <div style="white-space:pre-wrap;" class="card-text my-4" th:text="${post.content}" rows="35"></div>
-            <span class="d-flex justify-content-end my-2">
-            </span>
-        </div>
-    </div>
-
-</div>
-
-</html>
+<table>
+    <thead>
+    <tr>
+        <th>글 번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일시</th>
+        <th>수정날짜</th>
+        <th>내용</th>
+        <th>해시태그</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+        <td th:text="${post.postId}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.username}"></td>
+        <td th:text="${post.createdAt}"></td>
+        <td th:text="${post.updatedAt}"></td>
+        <td th:text="${post.content}"></td>
+        <td th:text="${post.keyword}"></td>
+    </tr>
+    </tbody>
+</table>
