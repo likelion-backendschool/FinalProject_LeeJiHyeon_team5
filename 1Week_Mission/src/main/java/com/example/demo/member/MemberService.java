@@ -29,8 +29,9 @@ public class MemberService {
         member.setRole("ROLE_USER");
         member.setAuthLevel(3L);
 
-        if(joinForm.getNickName().trim() != null)
+        if(joinForm.getNickName().length() != 0){
             member.setRole("ROLE_AUTHOR");
+        }
 
         memberRepository.save(member);
     }
