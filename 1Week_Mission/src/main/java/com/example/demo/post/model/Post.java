@@ -1,7 +1,6 @@
 package com.example.demo.post.model;
 
 
-import com.example.demo.postHashTag.model.PostHashTag;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,16 +33,14 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
     @Column(name = "user_name")
-    private String username;  // 회원번호
-
+    private String username;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "content",columnDefinition = "TEXT")
-    private String content;  // 마크다운
+    private String content;
 
     @Column(name = "keyword")
     private String keyword;
