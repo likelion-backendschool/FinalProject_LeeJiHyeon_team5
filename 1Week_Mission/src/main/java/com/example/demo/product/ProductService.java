@@ -1,8 +1,6 @@
 package com.example.demo.product;
 
 import com.example.demo.auth.PrincipalDetails;
-import com.example.demo.post.PostForm;
-import com.example.demo.post.model.Post;
 import com.example.demo.product.model.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final PostHashTagService posthashTagService;
-
 
     public void write(PrincipalDetails principalDetails, PostForm postForm) {
        Post post = new Post();

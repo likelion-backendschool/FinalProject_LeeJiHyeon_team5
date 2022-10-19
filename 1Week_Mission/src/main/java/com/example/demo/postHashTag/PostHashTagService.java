@@ -44,10 +44,6 @@ public class PostHashTagService {
                 .postkeyword(postkeyword)
                 .build();
 
-//        PostHashTag posthashTag = new PostHashTag();
-//        posthashTag.setPost(post);
-//        posthashTag.setPostkeyword(postkeyword);
-
         posthashTagRepository.save(posthashTag);
 
         return posthashTag;

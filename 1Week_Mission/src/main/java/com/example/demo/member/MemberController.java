@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 @RequestMapping("/member")
 @AllArgsConstructor
 public class MemberController {
-
     private MemberService memberService;
-
 
     @GetMapping("/join")
     public String join(){
@@ -26,11 +23,6 @@ public class MemberController {
         return "member/loginform";
     }
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin(){
-        return "admin 페이지";
-    }
 
     @PostMapping("/join")
     @ResponseBody
@@ -79,7 +71,6 @@ public class MemberController {
         return "/alert";
     }
 
-
     @GetMapping("/findPassword")
     public String findPassword(){
         return "member/findPassword";
@@ -94,8 +85,5 @@ public class MemberController {
 
         return "member/alert";
     }
-
-
-
 
 }

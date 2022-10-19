@@ -16,7 +16,6 @@ public class MemberService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private MemberRepository memberRepository;
 
-
     public void join(JoinForm joinForm) {
 
         String rawPassword = joinForm.getPassword();
