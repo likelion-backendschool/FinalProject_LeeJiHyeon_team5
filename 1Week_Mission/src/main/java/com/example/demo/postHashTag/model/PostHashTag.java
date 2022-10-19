@@ -1,37 +1,24 @@
 package com.example.demo.postHashTag.model;
 
+import com.example.demo.base.Base;
 import com.example.demo.post.model.Post;
 import com.example.demo.postKeyword.model.PostKeyword;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 @ToString(callSuper = true)
-public class PostHashTag {
+public class PostHashTag extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hasttag_id")
+    @Column(name = "hashtag_id")
     private Long hashtagId;
 
-    @Setter
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Setter
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @Column(name = "content")
     private Long memberId;

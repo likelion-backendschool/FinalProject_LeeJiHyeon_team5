@@ -1,6 +1,8 @@
 package com.example.demo.member.model;
 
+import com.example.demo.base.Base;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,31 +10,20 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+
 @Entity
-@Builder
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@ToString(callSuper = true)
 @Table(name = "member")
-public class Member {
+public class Member extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long memberId;
-
-
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
 
     @Column(name = "user_name")
     private String username;  // 로그인아이디
@@ -54,15 +45,15 @@ public class Member {
     private Long authLevel;
 
 
-    @Builder
-    public Member( String username, String password, String email, String nickName ) {
-
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.nickName = nickName;
-
-    }
+//    @Builder
+//    public Member( String username, String password, String email, String nickName ) {
+//
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.nickName = nickName;
+//
+//    }
 
 
 }

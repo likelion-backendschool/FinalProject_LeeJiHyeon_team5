@@ -1,36 +1,28 @@
 package com.example.demo.postKeyword.model;
 
+import com.example.demo.base.Base;
 import com.example.demo.postHashTag.model.PostHashTag;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Builder
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@ToString(callSuper = true)
 @Table(name = "postKeyword")
-public class PostKeyword {
+public class PostKeyword extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
     private Long keywordId;
 
-    @Setter
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Setter
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;

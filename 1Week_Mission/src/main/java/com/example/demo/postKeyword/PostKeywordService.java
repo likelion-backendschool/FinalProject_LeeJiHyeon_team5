@@ -18,10 +18,16 @@ public class PostKeywordService {
             return optKeyword.get();
         }
 
-        PostKeyword postKeyword = PostKeyword
-                .builder()
-                .content(keywordContent)
-                .build();
+//        PostKeyword postKeyword = PostKeyword
+//                .builder()
+//                .content(keywordContent)
+//                .build();
+
+        PostKeyword postKeyword = new PostKeyword();
+        postKeyword.setContent(keywordContent);
+
+
+
 
         postkeywordRepository.save(postKeyword);
 
