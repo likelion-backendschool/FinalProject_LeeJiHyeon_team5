@@ -2,6 +2,7 @@ package com.example.demo.product;
 
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.product.model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -9,13 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     public void create(PrincipalDetails principalDetails, ProductForm productForm) {
        Product product = new Product();

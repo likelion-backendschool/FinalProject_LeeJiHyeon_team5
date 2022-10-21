@@ -2,18 +2,18 @@ package com.example.demo.member;
 
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.member.model.Member;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberService {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final MemberRepository memberRepository;
 
     public void join(JoinForm joinForm) {
 

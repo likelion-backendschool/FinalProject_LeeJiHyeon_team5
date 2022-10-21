@@ -3,6 +3,7 @@ package com.example.demo.post;
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.post.model.Post;
 import com.example.demo.postHashTag.PostHashTagService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
