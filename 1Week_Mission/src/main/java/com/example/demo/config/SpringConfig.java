@@ -12,4 +12,6 @@ public class SpringConfig {
     public SpringConfig(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
+
 }

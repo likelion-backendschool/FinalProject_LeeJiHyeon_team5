@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -45,7 +46,13 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID", "remember-me") // 로그아웃 후 쿠키 삭제
                 .logoutSuccessUrl("/"); // 로그아웃 성공 후 이동페이지
 
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+
         return http.build();
     }
-
+    private AccessDeniedHandler accessDeniedHandler() {
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        accessDeniedHandler.setErrorPage("/denied");
+        return accessDeniedHandler;
+    }
 }

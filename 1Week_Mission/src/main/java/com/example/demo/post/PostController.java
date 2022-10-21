@@ -20,6 +20,8 @@ public class PostController {
 
     private final  PostService postService;
 
+
+   // @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     public String wrtieForm (@AuthenticationPrincipal PrincipalDetails principalDetails, PostForm postForm,
                              Model model,HttpServletResponse response) throws IOException {
@@ -47,7 +49,7 @@ public class PostController {
     }
 
 
-    @PostAuthorize("hasRole('ROLE_ADMIN')")
+    //@PostAuthorize("hasRole('ROLE_ADMIN') or #postForm.username == authentication.principal.username")
     @GetMapping("/{id}/modify")
     public String postModifyGet(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                 @PathVariable long id, PostForm postForm, Model model, HttpServletResponse response) throws IOException {

@@ -1,8 +1,12 @@
 package com.example.demo.member;
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.member.model.Member;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private MemberService memberService;
 
-    @GetMapping("/join")
-    public String join(){
-        return "member/joinform";
+
+    @GetMapping("/denied")
+    public String accessDenied(@RequestParam(value = "exception",required = false) String exception,
+                               Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member)authentication.getPrincipal();
+        model.addAttribute("username",member.getUsername());
+        model.addAttribute("exception",exception);
+        return "member/denied";
     }
 
     @GetMapping("/login")
@@ -23,16 +33,20 @@ public class MemberController {
         return "member/loginform";
     }
 
+    @GetMapping("/join")
+    public String join(){
+        return "member/joinform";
+    }
 
     @PostMapping("/join")
-    @ResponseBody
     public String joinPost( JoinForm joinForm) {
         String rawPassword = joinForm.getPassword();
         memberService.join(joinForm);
 
-        return rawPassword;
+        return  "redirect:/";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify")
     public String modify(@AuthenticationPrincipal PrincipalDetails principalDetails){
          return "member/modify";
@@ -43,9 +57,12 @@ public class MemberController {
         memberService.modify(principalDetails,modifyForm);
         return  "redirect:/";
     }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("modifyPassword")
     public String modifyPassword(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
         String password = principalDetails.getPassword();
+
         model.addAttribute("password",password);
         System.out.println(password);
         return "member/modifyPassword";

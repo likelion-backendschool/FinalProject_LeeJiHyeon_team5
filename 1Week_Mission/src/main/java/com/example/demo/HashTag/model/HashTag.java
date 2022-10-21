@@ -1,8 +1,8 @@
-package com.example.demo.postHashTag.model;
+package com.example.demo.HashTag.model;
 
 import com.example.demo.base.Base;
 import com.example.demo.post.model.Post;
-import com.example.demo.postKeyword.model.PostKeyword;
+import com.example.demo.Keyword.model.Keyword;
 import lombok.*;
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class PostHashTag extends Base {
+public class HashTag extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hashtag_id")
@@ -34,7 +34,7 @@ public class PostHashTag extends Base {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "postkeyword_keyword_id")
-    private PostKeyword postkeyword;
+    private Keyword postkeyword;
 
 
 }

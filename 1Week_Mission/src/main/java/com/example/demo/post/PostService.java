@@ -2,8 +2,7 @@ package com.example.demo.post;
 
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.post.model.Post;
-import com.example.demo.postHashTag.PostHashTagService;
-import lombok.AllArgsConstructor;
+import com.example.demo.HashTag.HashTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final PostHashTagService posthashTagService;
+    private final HashTagService posthashTagService;
 
     public void write(PrincipalDetails principalDetails, PostForm postForm) {
        Post post = new Post();
