@@ -1,6 +1,7 @@
 package com.example.demo.member;
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.mail.EmailService;
 import com.example.demo.member.model.Member;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,9 +16,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/member")
 @AllArgsConstructor
 public class MemberController {
-    private MemberService memberService;
+    private final MemberService memberService;
+    private final EmailService emailService;
 
+    @PostMapping("/emailConfirm")
+    public String emailConfirm(@RequestParam String email) throws Exception {
 
+        String confirm = emailService.sendSimpleMessage(email);
+
+        return confirm;
+    }
     @GetMapping("/denied")
     public String accessDenied(@RequestParam(value = "exception",required = false) String exception,
                                Model model){
@@ -35,7 +43,7 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(){
-        return "member/joinform";
+        return "member/joinForm2";
     }
 
     @PostMapping("/join")

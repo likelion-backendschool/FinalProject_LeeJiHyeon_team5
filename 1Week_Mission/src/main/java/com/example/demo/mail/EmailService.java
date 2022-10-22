@@ -3,7 +3,6 @@ package com.example.demo.mail;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,14 @@ import java.util.Random;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class EmailService  {
+public class EmailService {
 
-private final JavaMailSender javaMailSender;
+private final JavaMailSender javaMailSender;  //Bean등록해둔 MailConfig 받기
 
     private final String ePw = createKey();  //인증번호
 
 //    @Value("${spring.mail.username}")
-//    private String id;
+
 
     //메일 내용 작성
     public MimeMessage createMessage(String to)throws MessagingException, UnsupportedEncodingException {
@@ -44,7 +43,7 @@ private final JavaMailSender javaMailSender;
         msg += "</td></tr></tbody></table></div>";
 
         message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
-        message.setFrom(new InternetAddress("llfinal2book@gmail.com","prac_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress("wlgus9095@naver.com","prac_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
 
         return message;
     }
