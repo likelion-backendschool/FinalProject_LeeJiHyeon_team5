@@ -7,7 +7,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -75,9 +74,12 @@ public class PostController {
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable long id) {
-        postService.delete(id);
-
+    public String delete(@PathVariable long id, @AuthenticationPrincipal PrincipalDetails principalDetails, HttpServletResponse response) throws IOException {
+        Post post = postService.getPost(id);
+        if(!principalDetails.getUsername().equals(post.getUsername())){
+            alert(response,"작성자만 이용 가능합니다.");
+        }
+       postService.delete(id);
         return "redirect:/post/list";
     }
 

@@ -30,10 +30,9 @@ public class ProductController {
     }
 
     @GetMapping("/create")
-    public String productCreate (@AuthenticationPrincipal PrincipalDetails principalDetails, ProductForm productForm, Model model) {
+    public String productCreate (@AuthenticationPrincipal PrincipalDetails principalDetails,HttpServletResponse response ,ProductForm productForm, Model model) throws IOException {
         if(principalDetails == null){
-            model.addAttribute("msg", "로그인 후 이용해주세요");
-            return "/alert";
+            alert(response,"로그인 후 이용해주세요.");
         }
         return "/product/productForm";
     }
@@ -53,7 +52,7 @@ public class ProductController {
         return "product/productList";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    // @PreAuthorize("isAuthenticated()") securityConfig에서 미리 설정 해둠
     @GetMapping("/{id}/modify")
     public String productModify(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable long id,
                                 HttpServletResponse response, ProductForm productForm, Model model) throws IOException {
@@ -61,8 +60,7 @@ public class ProductController {
         Product product = productService.getProduct(id);
 
         if(!principalDetails.getMember().getMemberId().equals(product.getMemberId())){
-            response.setContentType("text/html; charset=utf-8");
-            response.getWriter().print("<script>alert('해당 페이지에 접근권한이 없습니다.');history.back();</script>");
+            alert(response,"작성자만 이용 가능합니다.");
         }
 
         model.addAttribute("product",product);
@@ -85,10 +83,8 @@ public class ProductController {
                          HttpServletResponse response) throws IOException {
         Product product = productService.getProduct(id);
 
-        // alert 메서드 만들기
         if(!principalDetails.getMember().getMemberId().equals(product.getMemberId())){
-            response.setContentType("text/html; charset=utf-8");
-            response.getWriter().print("<script>alert('해당 페이지에 접근권한이 없습니다.');history.back();</script>");
+            alert(response,"작성자만 삭제 가능합니다.");
         }
         productService.delete(id);
 
@@ -100,6 +96,12 @@ public class ProductController {
 
         model.addAttribute("product", productService.getProduct(id));
         return "product/productDetail";
+    }
+
+    public void alert(HttpServletResponse response, String msg) throws IOException {
+
+        response.setContentType("text/html; charset=utf-8");
+        response.getWriter().print("<script>alert('" + msg + "');history.back();</script>");
     }
 
 }

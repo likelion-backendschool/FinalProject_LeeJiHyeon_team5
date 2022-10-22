@@ -4,7 +4,6 @@ import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.post.model.Post;
 import com.example.demo.HashTag.HashTagService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +47,6 @@ public class PostService {
         postRepository.save(post);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or #postDto.user.userId == authentication.principal.username")
     public void delete(long postId) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new UsernameNotFoundException("일치하는 게시글을 찾을 수 없습니다."));
@@ -59,6 +57,5 @@ public class PostService {
     public List<Post> findAllPost() {
         return postRepository.findAll();
     }
-
 
 }
