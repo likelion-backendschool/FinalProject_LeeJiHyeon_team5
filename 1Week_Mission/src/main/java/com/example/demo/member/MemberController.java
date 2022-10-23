@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/member")
 @AllArgsConstructor
@@ -109,5 +112,13 @@ public class MemberController {
 
         return "member/alert";
     }
+
+    @ExceptionHandler(Exception.class)
+    public void catcher(Exception ex, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=utf-8");
+        response.getWriter().print("<script>alert('로그인 후 이용해주세요');  location.href = \"/member/login\";</script>");
+
+    }
+
 
 }
