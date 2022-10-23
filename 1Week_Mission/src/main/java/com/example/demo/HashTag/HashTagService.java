@@ -41,7 +41,9 @@ public class HashTagService {
 
         HashTag hashTag = new HashTag();
         hashTag.setPost(post);
-        hashTag.setPostkeyword(keyword);
+        hashTag.setPostId(post.getPostId());
+        hashTag.setKeyword(keyword);
+        hashTag.setKeywordId(keyword.getKeywordId());
 
 
         hashTagRepository.save(hashTag);

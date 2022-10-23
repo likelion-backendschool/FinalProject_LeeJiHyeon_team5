@@ -14,7 +14,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final HashTagService posthashTagService;
+    private final HashTagService hashTagService;
 
     public void write(PrincipalDetails principalDetails, PostForm postForm) {
        Post post = new Post();
@@ -26,7 +26,7 @@ public class PostService {
        post.setKeyword(postForm.getKeyword());
        post.setUsername(principalDetails.getUsername());
 
-        posthashTagService.applyHashTags(post, hashTagsStr);
+        hashTagService.applyHashTags(post, hashTagsStr);
 
         postRepository.save(post);
     }

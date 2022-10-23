@@ -18,9 +18,6 @@ public class HashTag extends Base {
     @Column(name = "hashtag_id")
     private Long hashtagId;
 
-    @Column(name = "content")
-    private Long memberId;
-
     @Column(name = "post_id")
     private Long postId;
 
@@ -29,12 +26,12 @@ public class HashTag extends Base {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_post_id")
+  //  @JoinColumn(name = "post_post_id")
     private Post post;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "postkeyword_keyword_id")
-    private Keyword postkeyword;
+   // @JoinColumn(name = "postkeyword_keyword_id")
+    private Keyword keyword;
 
 
 }
