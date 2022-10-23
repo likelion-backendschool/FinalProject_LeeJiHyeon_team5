@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout/layout.html}">
 
 <head>
     <title>글 상세페이지</title>
@@ -28,22 +27,14 @@
         </div>
 
         <div>
-            내용 : [[${article.content}]]
+            내용 : [[${post.content}]]
         </div>
 
         <div>
-            해시태그 :
-            <th:block th:each="hashTag : ${article.extra.hashTags}">
-                <a th:href="@{${hashTag.keyword.listUrl}}">
-                    #[[${hashTag.keyword.content}]]
-                </a>
-            </th:block>
+            해시태그 : [[${post.keyword}]]
+<!--            <th:block th:utext="${post.keywork}"/>-->
         </div>
 
-        <div th:each="entry : ${article.extra.genFileMap}">
-            <hr/>
-            <img th:src="@{${entry.value.url}}" alt="">
-        </div>
 
     </div>
 </section>

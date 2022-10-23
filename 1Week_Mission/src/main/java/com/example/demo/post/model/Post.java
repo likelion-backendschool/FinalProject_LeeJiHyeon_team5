@@ -1,8 +1,12 @@
 package com.example.demo.post.model;
 
+import com.example.demo.HashTag.model.HashTag;
 import com.example.demo.base.Base;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Entity

@@ -24,13 +24,14 @@ public class HashTag extends Base {
     @Column(name = "keyword_id")
     private Long keywordId;
 
-
+    //  @JoinColumn(name = "post_post_id")
     @ManyToOne(cascade = CascadeType.ALL)
-  //  @JoinColumn(name = "post_post_id")
+    @ToString.Exclude
     private Post post;
 
+    // @JoinColumn(name = "postkeyword_keyword_id")
     @ManyToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "postkeyword_keyword_id")
+    @ToString.Exclude
     private Keyword keyword;
 
 

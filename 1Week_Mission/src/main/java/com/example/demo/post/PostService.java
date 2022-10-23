@@ -1,5 +1,6 @@
 package com.example.demo.post;
 
+import com.example.demo.HashTag.model.HashTag;
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.post.model.Post;
 import com.example.demo.HashTag.HashTagService;
@@ -30,6 +31,8 @@ public class PostService {
 
         postRepository.save(post);
     }
+
+
 
     public Post getPost(long postId) {
         return postRepository.findByPostId(postId)

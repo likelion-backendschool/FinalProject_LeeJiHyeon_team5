@@ -21,6 +21,9 @@ public class Keyword extends Base {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    public String getListUrl() {
+        return "/post/list?kwType=keyword&kw=%s".formatted(content);
+    }
 
 
 }

@@ -50,4 +50,8 @@ public class HashTagService {
 
         return hashTag;
     }
+
+    public List<HashTag> getHashTags(Post post) {
+        return hashTagRepository.findAllByPostId(post.getPostId());
+    }
 }
