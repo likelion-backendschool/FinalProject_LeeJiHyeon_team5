@@ -29,6 +29,5 @@ public class Cart extends Base {
 
     @ManyToOne(fetch = LAZY)
     private Product product;
-
-
+    
 }
