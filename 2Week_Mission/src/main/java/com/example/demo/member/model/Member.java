@@ -46,7 +46,7 @@ public class Member extends Base {
     private Long authLevel;
 
     @OneToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_cart_id")
     private Cart cart;
 
 }

@@ -4,6 +4,7 @@ import com.example.demo.cart.model.Cart;
 import com.example.demo.member.model.Member;
 import com.example.demo.product.ProductRepository;
 import com.example.demo.product.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CartService {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
@@ -21,7 +22,7 @@ public class CartService {
         Product product = productRepository.findByProductId(productId)
                 .orElseThrow(() -> new ProductNotFoundException("일치하는 상품을 찾을 수 없습니다."));
 
-        Cart preCart = cartRepository.findByMemberAndProductId(member,productId).orElse(null);
+        Cart preCart = cartRepository.findByMemberAndProduct(member,product).orElse(null);
 
         if(preCart != null){
             response.setContentType("text/html; charset=utf-8");

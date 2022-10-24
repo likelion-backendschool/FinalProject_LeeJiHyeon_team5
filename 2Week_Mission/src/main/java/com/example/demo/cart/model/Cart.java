@@ -27,7 +27,7 @@ public class Cart extends Base {
     @OneToOne(mappedBy = "cart")  //회원 한 명당 한 개의 장바구니니
    private Member member;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product product;
 
 }

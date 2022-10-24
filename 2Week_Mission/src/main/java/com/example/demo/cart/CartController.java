@@ -2,7 +2,7 @@ package com.example.demo.cart;
 
 
 import com.example.demo.auth.PrincipalDetails;
-import com.example.demo.member.model.Member;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/cart")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CartController {
 
     private final CartService cartService;
