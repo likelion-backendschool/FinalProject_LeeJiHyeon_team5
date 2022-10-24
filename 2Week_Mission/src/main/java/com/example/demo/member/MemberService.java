@@ -71,4 +71,7 @@ public class MemberService {
         member.setPassword(encPassword);
         memberRepository.save(member);
     }
+
+    public void addCash(Member member, int i, String 주문결제__예치금결제) {
+    }
 }

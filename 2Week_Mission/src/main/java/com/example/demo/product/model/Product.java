@@ -33,9 +33,19 @@ public class Product extends Base {
     private String subject;
 
     @Column(name = "price")
-    private Long price;
+    private int price; // 가격
+
+    @Column(name = "salePrice")
+    private int salePrice; //실제 판매 가격
+
+    @Column(name = "wholesalePrice")
+    private int wholesalePrice; // 도매 가격
 
     @Column(name = "keyword")
     private String keyword;
+
+
+
+
 
 }

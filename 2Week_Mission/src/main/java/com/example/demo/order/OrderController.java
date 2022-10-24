@@ -39,7 +39,7 @@ public class OrderController {
         return"/order/list";
     }
 
-    @GetMapping("/{id}}")
+    @GetMapping("/{id}")
     public String orderDetail(@PathVariable("id") Long orderId, Model model) {
         Order order = orderService.getOrder(orderId);
         model.addAttribute("order",order);
@@ -47,10 +47,24 @@ public class OrderController {
 
     }
 
-    @PostMapping("/{id}/cancel}")
+    @PostMapping("/{id}/cancel")
     public String cancleOrder(@PathVariable("id") Long orderId){
 
         return"/order/list";
     }
+
+    @PostMapping("/{id}/pay")
+    public String payOrder(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable("id") Long orderId){
+        orderService.payByCash(principalDetails.getMember(),orderId);
+        return"/order/list";
+    }
+
+    @PostMapping("/{id}/refund")
+    public String refundOrder(@PathVariable("id") Long orderId){
+
+        return"/order/list";
+    }
+
+
 
 }

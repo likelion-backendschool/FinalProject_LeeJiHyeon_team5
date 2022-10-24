@@ -4,7 +4,6 @@ package com.example.demo.order.model;
 import com.example.demo.base.Base;
 import com.example.demo.member.model.Member;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,8 +15,6 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@SuperBuilder
 @ToString(callSuper = true)
 @Table(name = "order_from_cart")
 public class Order extends Base {
@@ -34,7 +31,22 @@ public class Order extends Base {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
-
         orderItems.add(orderItem);
+    }
+
+    public int calculatePayPrice() {
+        int payPrice = 0;
+
+        for ( OrderItem orderItem : orderItems ) {
+            payPrice += orderItem.getSalePrice();
+        }
+
+        return payPrice;
+    }
+
+    public void setPaymentDone() {
+        for ( OrderItem orderItem : orderItems ) {
+            orderItem.setPaymentDone();
+        }
     }
 }

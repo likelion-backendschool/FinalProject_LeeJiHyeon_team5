@@ -2,6 +2,7 @@ package com.example.demo.order;
 
 import com.example.demo.cart.CartService;
 import com.example.demo.cart.model.CartItem;
+import com.example.demo.member.MemberService;
 import com.example.demo.member.model.Member;
 import com.example.demo.order.model.Order;
 import com.example.demo.order.model.OrderItem;
@@ -20,6 +21,7 @@ public class OrderService {
     private final CartService cartService;
     private final OrderRepository orderRepository;
 
+    private final MemberService memberService;
     @Transactional
     public Order createOrderFromCart(Member member) {
         List<CartItem> cartItems = cartService.getItemsByMember(member);
@@ -36,10 +38,9 @@ public class OrderService {
 
     @Transactional
     public Order creatOrder(Member member, List<OrderItem> orderItems) {
-        Order order = Order
-                .builder()
-                .member(member)
-                .build();
+
+        Order order = new Order();
+        order.setMember(member);
 
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
@@ -62,5 +63,23 @@ public class OrderService {
         List<Order> orders = orderRepository.findAllByMember(member);
 
         return orders;
+    }
+
+    public void payByCash(Member member, Long orderId) {
+        Order order =  orderRepository.findByOrderId(orderId)
+                .orElseThrow(()->new OrderNotFoundException("주문내역이 존재하지 않습니다."));
+
+        long restCash = member.getRestCash();
+        int payPrice = order.calculatePayPrice();
+
+        if (payPrice > restCash) {
+            throw new RuntimeException("예치금이 부족합니다.");
+        }
+
+        memberService.addCash(member, payPrice * -1, "주문결제__예치금결제");
+
+        order.setPaymentDone();
+        orderRepository.save(order);
+
     }
 }

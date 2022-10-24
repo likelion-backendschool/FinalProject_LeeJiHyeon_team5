@@ -38,4 +38,7 @@ public class Member extends Base {
     @Column(name = "auth_level")
     private Long authLevel;
 
+    @Column(name = "restCash")
+    private long restCash;
+
 }
