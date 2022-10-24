@@ -45,15 +45,4 @@ public class Member extends Base {
     private Long authLevel;
 
 
-//    @Builder
-//    public Member( String username, String password, String email, String nickName ) {
-//
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.nickName = nickName;
-//
-//    }
-
-
 }
