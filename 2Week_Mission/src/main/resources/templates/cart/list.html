@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-
 <div class="container my-3 p-5">
     <h4 class="my-4"> 장바구니 목록</h4>
 
@@ -17,9 +16,9 @@
             <tbody>
             <tr th:each="cartItem : ${cartItems}">
                 <!-- 일반 유저일 때 -->
-                    <div class="card-header" th:onclick="|location.href='@{product/${cartItem.product.productId}|}'|"
+                    <div class="card-header" th:onclick="|location.href='@{|/product/${cartItem.product.productId}|}'|"
                          style="cursor:pointer;">
-                        <span th:text="${cartItem.product.title}"></span>
+                        <span th:text="${cartItem.product.subject}"></span>
                     </div>
             </tr>
             </tbody>

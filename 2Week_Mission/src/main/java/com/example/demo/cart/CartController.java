@@ -30,7 +30,7 @@ public class CartController {
     }
 
 
-    @PostMapping("/add/{id}")
+    @RequestMapping("/add/{id}")
     public String addToCart(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long productId
                             , HttpServletResponse response) throws IOException {
         cartService.addItem(principalDetails.getMember(), productId ,response);
@@ -38,9 +38,9 @@ public class CartController {
     }
 
 
-    @PostMapping("/remove/{id}")
+    @RequestMapping("/remove/{id}")
     public String removeFromCart(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable("id") Long productId){
         cartService.remove(principalDetails.getMember(), productId);
-        return "/cart/list";
+        return "redirect:/cart/list";
     }
 }
