@@ -1,6 +1,5 @@
 package com.example.demo.order;
 
-
 import com.example.demo.cart.CartService;
 import com.example.demo.cart.model.CartItem;
 import com.example.demo.member.model.Member;
@@ -22,13 +21,8 @@ public class OrderService {
 
     @Transactional
     public Order createOrderFromCart(Member member) {
-        // 입력된 회원의 장바구니 아이템들을 전부 가져온다.
-        // 만약에 특정 장바구니의 상품옵션이 판매가능이면 주문품목으로 옮긴 후 삭제
-
         List<CartItem> cartItems = cartService.getItemsByMember(member);
-
         List<OrderItem> orderItems = new ArrayList<>();
-
 
         return creatOrder(member, orderItems);
     }
@@ -47,5 +41,19 @@ public class OrderService {
         orderRepository.save(order);
 
         return order;
+    }
+
+    public Order getOrder(Long orderId) {
+       Order order =  orderRepository.findByOrderId(orderId)
+               .orElseThrow(()->new OrderNotFoundException("주문내역이 존재하지 않습니다."));
+
+       return order;
+
+    }
+
+    public List<Order> getOrders(Member member) {
+        List<Order> orders = orderRepository.findAllByMember(member);
+
+        return orders;
     }
 }
