@@ -21,7 +21,7 @@ public class AccountController {
 
     @PostMapping("mailConfirm")
     @ResponseBody
-    public String mailConfirm(@RequestParam("email") String email) throws Exception {
+    public String mailConfirm( String email )throws Exception {
         String code = emailService.sendSimpleMessage(email);
         log.info("인증코드 : " + code);
         return code;

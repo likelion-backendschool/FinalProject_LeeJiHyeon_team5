@@ -46,7 +46,7 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(){
-        return "member/joinForm";
+        return "member/joinForm2";
     }
 
     @PostMapping("/join")
@@ -106,19 +106,20 @@ public class MemberController {
     @PostMapping("/findPassword")
     public String foundPassword(@RequestParam String username,@RequestParam String email, Model model){
         String password = "1234a";
-        memberService.setTemporaryPassword(username,password);
+        memberService.setTemporaryPassword(username,email,password);
+
         model.addAttribute("msg",
                 "회원님의 임시 비밀번호는 " + password + "입니다. 로그인 후 비밀번호를 변경해주세요");
 
         return "member/alert";
     }
 
-    @ExceptionHandler(Exception.class)
-    public void catcher(Exception ex, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html; charset=utf-8");
-        response.getWriter().print("<script>alert('로그인 후 이용해주세요');  location.href = \"/member/login\";</script>");
-
-    }
+//    @ExceptionHandler(Exception.class)
+//    public void catcher(Exception ex, HttpServletResponse response) throws IOException {
+//        response.setContentType("text/html; charset=utf-8");
+//        response.getWriter().print("<script>alert('로그인 후 이용해주세요');  location.href = \"/member/login\";</script>");
+//
+//    }
 
 
 }

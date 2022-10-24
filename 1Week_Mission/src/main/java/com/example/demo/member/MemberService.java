@@ -63,9 +63,9 @@ public class MemberService {
         return username;
     }
 
-    public void setTemporaryPassword(String username, String password) {
-        Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("일치하는 회원을 찾을 수 없습니다."));
+    public void setTemporaryPassword(String username, String email, String password) {
+        Member member = memberRepository.findByUsernameAndEmail(username,email)
+                .orElseThrow(() -> new MemberNotFoundException("일치하는 회원을 찾을 수 없습니다."));
 
         String encPassword = bCryptPasswordEncoder.encode(password);
         member.setPassword(encPassword);

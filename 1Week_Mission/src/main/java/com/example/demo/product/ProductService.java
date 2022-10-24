@@ -1,5 +1,6 @@
 package com.example.demo.product;
 
+import com.example.demo.HashTag.HashTagService;
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.product.model.Product;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +15,18 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final HashTagService hashTagService;
 
     public void create(PrincipalDetails principalDetails, ProductForm productForm) {
        Product product = new Product();
 
         product.setSubject(productForm.getSubject());
         product.setPrice(productForm.getPrice());
+        product.setKeyword(productForm.getKeyword());
         product.setMemberId(principalDetails.getMember().getMemberId());
+
+
+        hashTagService.applyProductHashTags(product, productForm.getKeyword());
 
         productRepository.save(product);
     }

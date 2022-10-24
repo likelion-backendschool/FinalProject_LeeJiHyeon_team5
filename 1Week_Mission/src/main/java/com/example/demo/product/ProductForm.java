@@ -10,6 +10,7 @@ public class ProductForm {
 
     private String subject;
     private Long price;
+    private String keyword;
     private Long memberId;
 
 }

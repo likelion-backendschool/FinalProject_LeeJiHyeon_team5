@@ -35,5 +35,7 @@ public class Product extends Base {
     @Column(name = "price")
     private Long price;
 
+    @Column(name = "keyword")
+    private String keyword;
 
 }

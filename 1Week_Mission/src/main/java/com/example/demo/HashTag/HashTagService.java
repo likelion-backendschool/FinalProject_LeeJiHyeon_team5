@@ -4,6 +4,7 @@ import com.example.demo.post.model.Post;
 import com.example.demo.HashTag.model.HashTag;
 import com.example.demo.Keyword.KeywordService;
 import com.example.demo.Keyword.model.Keyword;
+import com.example.demo.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,17 @@ public class HashTagService {
         });
     }
 
+    public void applyProductHashTags(Product product, String keywordContentsStr) {
+        List<String> keywordContents = Arrays.stream(keywordContentsStr.split("#"))
+                .map(String::trim)
+                .filter(s -> s.length() > 0)
+                .collect(Collectors.toList());
+
+        keywordContents.forEach(keywordContent -> {
+            saveProductHashTag(product, keywordContent);
+        });
+    }
+
     private HashTag saveHashTag(Post post, String keywordContent) {
         Keyword keyword = keywordService.save(keywordContent);
 
@@ -50,6 +62,28 @@ public class HashTagService {
 
         return hashTag;
     }
+    private HashTag saveProductHashTag(Product product, String keywordContent) {
+        Keyword keyword = keywordService.save(keywordContent);
+
+        Optional<HashTag> opHashTag = hashTagRepository.findByProductIdAndKeywordId(product.getProductId(), keyword.getKeywordId());
+
+        if (opHashTag.isPresent()) {
+            return opHashTag.get();
+        }
+
+        HashTag hashTag = new HashTag();
+        hashTag.setProduct(product);
+        hashTag.setProductId(product.getProductId());
+        hashTag.setKeyword(keyword);
+        hashTag.setKeywordId(keyword.getKeywordId());
+
+
+        hashTagRepository.save(hashTag);
+
+        return hashTag;
+    }
+
+
 
     public List<HashTag> getHashTags(Post post) {
         return hashTagRepository.findAllByPostId(post.getPostId());

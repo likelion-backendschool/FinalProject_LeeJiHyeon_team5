@@ -3,6 +3,7 @@ package com.example.demo.HashTag.model;
 import com.example.demo.base.Base;
 import com.example.demo.post.model.Post;
 import com.example.demo.Keyword.model.Keyword;
+import com.example.demo.product.model.Product;
 import lombok.*;
 import javax.persistence.*;
 
@@ -21,6 +22,9 @@ public class HashTag extends Base {
     @Column(name = "post_id")
     private Long postId;
 
+    @Column(name = "product_id")
+    private Long productId;
+
     @Column(name = "keyword_id")
     private Long keywordId;
 
@@ -33,6 +37,10 @@ public class HashTag extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Keyword keyword;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Product product;
 
 
 }
