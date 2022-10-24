@@ -23,9 +23,9 @@ public class Cart extends Base {
     @Column(name = "cartId")
     private Long cartId;
 
-    @OneToOne  // 회원 한 명당 한 개의 장바구니
-    @JoinColumn(name = "member_member_id")
-    private Member member;
+
+    @OneToOne(mappedBy = "cart")  //회원 한 명당 한 개의 장바구니니
+   private Member member;
 
     @ManyToOne(fetch = LAZY)
     private Product product;

@@ -1,7 +1,6 @@
 package com.example.demo.cart;
 
 import com.example.demo.cart.model.Cart;
-import com.example.demo.member.MemberNotFoundException;
 import com.example.demo.member.model.Member;
 import com.example.demo.product.ProductRepository;
 import com.example.demo.product.model.Product;
