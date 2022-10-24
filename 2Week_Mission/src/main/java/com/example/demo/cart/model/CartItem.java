@@ -16,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Table(name = "cart")
-public class Cart extends Base {
+public class CartItem extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class Cart extends Base {
     private Long cartId;
 
 
-    @OneToOne(mappedBy = "cart")  //회원 한 명당 한 개의 장바구니니
-   private Member member;
+    @ManyToOne(fetch = LAZY)
+    private Member member;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Product product;

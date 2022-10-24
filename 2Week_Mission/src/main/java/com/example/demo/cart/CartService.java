@@ -1,11 +1,10 @@
 package com.example.demo.cart;
 
-import com.example.demo.cart.model.Cart;
+import com.example.demo.cart.model.CartItem;
 import com.example.demo.member.model.Member;
 import com.example.demo.product.ProductRepository;
 import com.example.demo.product.model.Product;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,18 +21,27 @@ public class CartService {
         Product product = productRepository.findByProductId(productId)
                 .orElseThrow(() -> new ProductNotFoundException("일치하는 상품을 찾을 수 없습니다."));
 
-        Cart preCart = cartRepository.findByMemberAndProduct(member,product).orElse(null);
+        CartItem preCart = cartRepository.findByMemberAndProduct(member,product).orElse(null);
 
         if(preCart != null){
             response.setContentType("text/html; charset=utf-8");
             response.getWriter().print("<script>alert('이미 추가된 항목입니다.');  location.href = \"/cart/list\";</script>");
         }
 
-        Cart cart = new Cart();
-        cart.setMember(member);
-        cart.setProduct(product);
+        CartItem cartItem = new CartItem();
+        cartItem.setMember(member);
+        cartItem.setProduct(product);
 
-        cartRepository.save(cart);
+        cartRepository.save(cartItem);
+    }
+
+    public void remove(Member member, Long productId) {
+        Product product = productRepository.findByProductId(productId)
+                .orElseThrow(() -> new ProductNotFoundException("일치하는 상품을 찾을 수 없습니다."));
+
+        CartItem cartItem = cartRepository.findByMemberAndProduct(member,product).orElse(null);
+        cartRepository.delete(cartItem);
+
     }
 }
 

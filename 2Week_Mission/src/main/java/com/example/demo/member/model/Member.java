@@ -1,15 +1,9 @@
 package com.example.demo.member.model;
 
 import com.example.demo.base.Base;
-import com.example.demo.cart.model.Cart;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -44,9 +38,5 @@ public class Member extends Base {
 
     @Column(name = "auth_level")
     private Long authLevel;
-
-    @OneToOne
-    @JoinColumn(name = "cart_cart_id")
-    private Cart cart;
 
 }

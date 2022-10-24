@@ -3,7 +3,6 @@ package com.example.demo.cart;
 
 import com.example.demo.auth.PrincipalDetails;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,8 @@ public class CartController {
 
 
     @PostMapping("/remove/{id}")
-    public String removFromCart(){
+    public String removeFromCart(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable("id") Long productId){
+        cartService.remove(principalDetails.getMember(), productId);
         return "/cart/list";
     }
 }
