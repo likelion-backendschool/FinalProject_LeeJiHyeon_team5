@@ -42,6 +42,7 @@ public class CartService {
                 .orElseThrow(() -> new ProductNotFoundException("일치하는 상품을 찾을 수 없습니다."));
 
         CartItem cartItem = cartRepository.findByMemberAndProduct(member,product).orElse(null);
+
         cartRepository.delete(cartItem);
 
     }

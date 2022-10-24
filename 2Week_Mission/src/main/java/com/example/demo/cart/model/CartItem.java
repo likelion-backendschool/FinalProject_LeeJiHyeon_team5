@@ -27,7 +27,7 @@ public class CartItem extends Base {
     @ManyToOne(fetch = LAZY)
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Product product;
 
 }
