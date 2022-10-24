@@ -5,6 +5,7 @@ import com.example.demo.cart.model.CartItem;
 import com.example.demo.member.model.Member;
 import com.example.demo.order.model.Order;
 import com.example.demo.order.model.OrderItem;
+import com.example.demo.product.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,13 @@ public class OrderService {
     @Transactional
     public Order createOrderFromCart(Member member) {
         List<CartItem> cartItems = cartService.getItemsByMember(member);
+
         List<OrderItem> orderItems = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+            Product product = cartItem.getProduct();
+            orderItems.add(new OrderItem(product));
+        }
 
         return creatOrder(member, orderItems);
     }

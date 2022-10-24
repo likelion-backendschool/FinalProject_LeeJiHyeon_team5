@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<div class="container my-3 p-5">
+    <h4 class="my-4"> 주문 상세 페이지</h4>
+
+
+<div>
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each="orderItem : ${order.orderItems}">
+            <!-- 일반 유저일 때 -->
+            <div class="card-header" th:onclick="|location.href='@{|/product/${orderItem.product.productId}|}'|"
+                 style="cursor:pointer;">
+                <span th:text="${orderItem}"></span>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>

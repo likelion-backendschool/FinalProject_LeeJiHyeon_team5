@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<div class="container my-3 p-5">
+    <h4 class="my-4"> 주문 목록</h4>
+
+    <div th:if="${orderSize} == 0">
+        <span class="h6">주문 내역이 없습니다.</span>
+    </div>
+</div>
+<!--#authentication.principal.username-->
+<div>
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <!-- 일반 유저일 때 -->
+            <div class="card-header" th:onclick="|location.href='@{|/order/${order.orderId}|}'|"
+                 style="cursor:pointer;">
+                <span th:text="|${order.orderId} 번 주문|"></span>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>

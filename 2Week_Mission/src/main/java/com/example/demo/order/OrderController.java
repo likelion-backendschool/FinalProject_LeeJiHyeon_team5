@@ -32,7 +32,10 @@ public class OrderController {
     @GetMapping("/list")
     public String orderList(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         List<Order> orders = orderService.getOrders(principalDetails.getMember());
+        int orderSize = orders.size();
         model.addAttribute("orders", orders);
+        model.addAttribute("orderSize", orderSize);
+
         return"/order/list";
     }
 

@@ -2,6 +2,7 @@ package com.example.demo.order.model;
 
 
 import com.example.demo.base.Base;
+import com.example.demo.product.model.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,8 +29,13 @@ public class OrderItem extends Base {
     private Order order;
 
 
-//    public OrderItem(ProductOption productOption, int quantity) {
-//        this.productOption = productOption;
-//        this.quantity = quantity;
-//    }
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "product_product_id")
+    private Product product;
+
+
+    public OrderItem(Product product) {
+        this.product = product;
+
+    }
 }
