@@ -2,7 +2,6 @@ package com.example.demo.member.model;
 
 import com.example.demo.base.Base;
 import lombok.*;
-
 import javax.persistence.*;
 
 

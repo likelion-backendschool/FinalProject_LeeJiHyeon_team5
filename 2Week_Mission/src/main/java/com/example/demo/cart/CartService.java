@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -43,5 +45,10 @@ public class CartService {
         cartRepository.delete(cartItem);
 
     }
+
+    public List<CartItem> getItemsByMember(Member member) {
+        return cartRepository.findAllByMember(member);
+    }
+
 }
 

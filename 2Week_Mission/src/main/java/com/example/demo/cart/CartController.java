@@ -2,13 +2,16 @@ package com.example.demo.cart;
 
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.cart.model.CartItem;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -18,7 +21,11 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/list")
-    public String showCastList(){
+    public String showCartList(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
+       List<CartItem> cartItems = cartService.getItemsByMember(principalDetails.getMember());
+        int cartItemSize = cartItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cartItemSize",cartItemSize);
         return "/cart/list";
     }
 

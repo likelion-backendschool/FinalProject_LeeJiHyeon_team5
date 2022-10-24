@@ -1,20 +1,27 @@
-<table>
-    <thead>
-    <tr>
-        <th>글 번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일시</th>
-        <th>수정날짜</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="post : ${posts}">
-        <td th:text="${post.postId}"></td>
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.username}"></td>
-        <td th:text="${post.createdAt}"></td>
-        <td th:text="${post.updatedAt}"></td>
-    </tr>
-    </tbody>
-</table>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<div class="container my-3 p-5">
+    <h4 class="my-4"> 장바구니 목록</h4>
+
+    <div th:if="${cartItemSize} == 0">
+            <span class="h6">장바구니가 비어있습니다.</span>
+        </div>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem : ${cartItems}">
+                <!-- 일반 유저일 때 -->
+                    <div class="card-header" th:onclick="|location.href='@{product/${cartItem.product.productId}|}'|"
+                         style="cursor:pointer;">
+                        <span th:text="${cartItem.product.title}"></span>
+                    </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
