@@ -45,6 +45,8 @@ public class OrderItem extends Base {
     // private int refundQuantity; // 환불한 개수
     private boolean isPaid; // 결제여부
 
+    private LocalDateTime payDate;
+
 
     public OrderItem(Product product) {
         this.product = product;
@@ -58,6 +60,7 @@ public class OrderItem extends Base {
         this.pgFee = 0;
         this.isPaid = true;
         this.payPrice = getSalePrice();  //한 개만 주문 가능하니까 주문 수량 곱할 필요 없음
+        this.payDate = LocalDateTime.now();
     }
 
     public void setRefundDone() { // 전체환불.

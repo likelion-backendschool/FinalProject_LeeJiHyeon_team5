@@ -2,6 +2,7 @@ package com.example.demo.order;
 
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.member.model.Member;
 import com.example.demo.order.model.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +25,13 @@ public class OrderController {
 
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
-    public String createOrder(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        orderService.createOrderFromCart(principalDetails.getMember());
-        return "redirect:/";
+    public String createOrderFromCart(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        Order order = orderService.createOrderFromCart(principalDetails.getMember());
+        Long id = order.getOrderId();
+        String redirect = "redirect:/order/%d".formatted(id);
+
+        return redirect;
     }
 
     @GetMapping("/list")
@@ -40,11 +45,15 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public String orderDetail(@PathVariable("id") Long orderId, Model model) {
+    @PreAuthorize("isAuthenticated()")
+    public String showDetail(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable long orderId, Model model) {
         Order order = orderService.getOrder(orderId);
-        model.addAttribute("order",order);
-        return "order/detail";
 
+        Member member = principalDetails.getMember();
+
+        model.addAttribute("order", order);
+
+        return "order/detail";
     }
 
     @PostMapping("/{id}/cancel")

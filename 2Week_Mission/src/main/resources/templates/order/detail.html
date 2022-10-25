@@ -1,22 +1,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <title>주문 상세페이지</title>
+</head>
 
-<div class="container my-3 p-5">
-    <h4 class="my-4"> 주문 상세 페이지</h4>
-</div>
+<body>
+    <section class="section section-write container mx-auto">
 
-<div>
-    <table class="table">
-        <thead>
-        </thead>
-        <tbody>
-        <tr th:each="orderItem : ${order.orderItems}">
-            <!-- 일반 유저일 때 -->
-            <div class="card-header" th:onclick="|location.href='@{|/product/${orderItem.product.productId}|}'|"
-                 style="cursor:pointer;">
-                <span th:text="${orderItem}"></span>
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">주문 상세내용</h1>
+
+            <div class="flex flex-col gap-3 mt-3">
+                <div>
+                    주문번호 : [[${order.orderId}]]
+                </div>
+
+                <div>
+                    주문날짜 : [[${order.createDate}]]
+                </div>
+
+                <div>
+                    주문자 : [[${#authentication.principal.username}]]
+                </div>
+
+                <div>
+                    주문가격 : [[${order.payPrice}]]
+                </div>
+
+                <div>
+                    <div th:each="orderItem : ${order.orderItems}">
+                        <div>
+                            도서명 : [[${orderItem.product.subject}]]
+                            가격 : [[${orderItem.salePrice}]]
+                        </div>
+                    </div>
+                </div>
             </div>
-        </tr>
-        </tbody>
-    </table>
-</div>
+        </div>
+    </section>
+
+</body>
+</html>

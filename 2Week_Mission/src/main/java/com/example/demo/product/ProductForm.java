@@ -9,7 +9,7 @@ import lombok.Setter;
 public class ProductForm {
 
     private String subject;
-    private Long price;
+    private int price;
     private String keyword;
     private Long memberId;
 
