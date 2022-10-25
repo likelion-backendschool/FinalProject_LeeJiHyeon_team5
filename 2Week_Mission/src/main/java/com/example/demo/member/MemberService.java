@@ -1,11 +1,13 @@
 package com.example.demo.member;
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.cash.CashService;
+import com.example.demo.cash.model.CashLog;
 import com.example.demo.member.model.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -15,6 +17,7 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
 
+    private final CashService cashService;
     public void join(JoinForm joinForm) {
 
         String rawPassword = joinForm.getPassword();
@@ -72,6 +75,19 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void addCash(Member member, int i, String 주문결제__예치금결제) {
+    @Transactional
+    public long addCash(Member member, long price, String eventType) {
+
+        CashLog cashLog = cashService.addCash(member, price, eventType);
+
+        long newRestCash = member.getRestCash() + cashLog.getPrice();
+        member.setRestCash(newRestCash);
+        memberRepository.save(member);
+
+        return newRestCash;
+    }
+
+    public long getRestCash(Member member) {
+        return member.getRestCash();
     }
 }
