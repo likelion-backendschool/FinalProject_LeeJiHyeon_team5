@@ -46,6 +46,8 @@ public class OrderService {
             order.addOrderItem(orderItem);
         }
 
+        order.makeName();
+
         orderRepository.save(order);
 
         return order;
@@ -90,6 +92,19 @@ public class OrderService {
         memberService.addCash(order.getMember(), payPrice, "주문환불__예치금환불");
 
         order.setRefundDone();
+        orderRepository.save(order);
+    }
+
+
+    @Transactional
+    public void payByTossPayments(Order order) {
+        Member orderer = order.getMember();
+        int payPrice = order.calculatePayPrice();
+
+        memberService.addCash(orderer, payPrice, "주문결제충전__토스페이먼츠");
+        memberService.addCash(orderer, payPrice * -1, "주문결제__토스페이먼츠");
+
+        order.setPaymentDone();
         orderRepository.save(order);
     }
 
