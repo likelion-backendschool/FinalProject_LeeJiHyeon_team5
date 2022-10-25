@@ -29,19 +29,18 @@ public class OrderItem extends Base {
     @ToString.Exclude
     private Order order;
 
-
-    private LocalDateTime payDate; // 결제일
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "product_product_id")
     private Product product;
 
     private int price; // 권장판매가
-    private int salePrice; // 실제판매가, 결제금액
+    private int salePrice; // 실제판매가,
     private int wholesalePrice; // 도매가
 
     private int pgFee; // 결제대행사 수수료
 
-    private int refundPrice; // 환불금액
+    private int payPrice; //결제금액액
+   private int refundPrice; // 환불금액
 
     // private int refundQuantity; // 환불한 개수
     private boolean isPaid; // 결제여부
@@ -58,6 +57,10 @@ public class OrderItem extends Base {
     public void setPaymentDone() {
         this.pgFee = 0;
         this.isPaid = true;
-        this.payDate = LocalDateTime.now();
+        this.payPrice = getSalePrice();  //한 개만 주문 가능하니까 주문 수량 곱할 필요 없음
+    }
+
+    public void setRefundDone() { // 전체환불.
+        this.refundPrice = payPrice;
     }
 }

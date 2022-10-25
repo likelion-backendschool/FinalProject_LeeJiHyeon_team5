@@ -61,7 +61,7 @@ public class OrderController {
 
     @PostMapping("/{id}/refund")
     public String refundOrder(@PathVariable("id") Long orderId){
-
+        orderService.refund(orderId);
         return"/order/list";
     }
 
