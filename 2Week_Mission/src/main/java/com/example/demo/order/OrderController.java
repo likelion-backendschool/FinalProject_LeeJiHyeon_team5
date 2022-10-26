@@ -2,6 +2,7 @@ package com.example.demo.order;
 
 
 import com.example.demo.auth.PrincipalDetails;
+import com.example.demo.member.MemberService;
 import com.example.demo.member.model.Member;
 import com.example.demo.order.model.Order;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,6 +32,7 @@ public class OrderController {
     private final OrderService orderService;
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper;
+    private final  MemberService memberService;
 
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
@@ -73,8 +75,8 @@ public class OrderController {
         return"/order/list";
     }
 
-    @PostMapping("/{id}/pay")
-    public String payOrder(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable("id") Long orderId){
+    @PostMapping("/{id}/pay")   //예치금 결제
+    public String payByRestCash(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable("id") Long orderId){
         orderService.payByCash(principalDetails.getMember(),orderId);
         return"/order/list";
     }
@@ -108,6 +110,7 @@ public class OrderController {
             @RequestParam String paymentKey,
             @RequestParam String orderId,
             @RequestParam Long amount,
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
             Model model
     ) throws Exception {
 
@@ -119,15 +122,22 @@ public class OrderController {
             throw new OrderIdNotMatchedException();
         }
 
-
         HttpHeaders headers = new HttpHeaders();
-        // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
         headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("orderId", orderId);
-        payloadMap.put("amount", String.valueOf(order.calculatePayPrice()));
+        payloadMap.put("amount", String.valueOf(amount));
+
+        Member orderer = principalDetails.getMember();
+
+        long restCash = memberService.getRestCash(orderer);
+        long payPriceRestCash = order.calculatePayPrice() - amount;
+
+        if (payPriceRestCash > restCash) {
+            throw new OrderNotEnoughRestCashException();
+        }
 
         HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(payloadMap), headers);
 
@@ -135,7 +145,7 @@ public class OrderController {
                 "https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
-            orderService.payByTossPayments(order);
+            orderService.payByTossPayments(order, payPriceRestCash);
 
             return "redirect:/order/%d".formatted(order.getOrderId());
         } else {

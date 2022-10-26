@@ -1,22 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>주문 상세페이지</title>   <!--결제 전 보여주는 페이지-->
+    <title>주문 상세내용</title>
 </head>
 
 <body>
+    <script src="https://js.tosspayments.com/v1"></script>
 
-<script src="https://js.tosspayments.com/v1"></script>
-
-<script th:inline="javascript">
+    <script th:inline="javascript">
         const orderId = /*[[ ${order.id} ]]*/ null;
         const buyerName = /*[[ ${order.member.username} ]]*/ null;
         const orderName = /*[[ ${order.name} ]]*/ null;
         const orderPayPrice = /*[[ ${order.calculatePayPrice} ]]*/ null;
     </script>
 
-<form hidden name="payByRestCashOnlyForm" method="POST" th:action="@{|/order/${order.orderId}/payByRestCashOnly|}">
-</form>
+    <!--예치금 전액 결제시 실행-->
+    <form hidden name="payByRestCashOnlyForm" method="POST" th:action="@{|/order/${order.orderId}/pay|}">
+    </form>
 
     <section class="section section-write container mx-auto">
 
@@ -24,6 +24,7 @@
             <h1 class="font-bold text-lg">주문 상세내용</h1>
 
             <div class="flex flex-col gap-3 mt-3">
+
                 <div>
                     주문번호 : [[${order.orderId}]]
                 </div>
@@ -51,8 +52,8 @@
 
                 <div>
                     <div>
-                        보유 예치금 : [[${ restCash }]]
-                   </div>      <!--  예치금 전액 결제시 실행-->
+                        보유 예치금 : [[${actorRestCash}]]
+                    </div>
                     <div th:with="maxUseRestCash = ${order.calculatePayPrice > actorRestCash ? actorRestCash : order.calculatePayPrice}">
                         <span>사용할 예치금 : </span>
                         <input type="number" id="PaymentForm__useRestCash"
@@ -71,14 +72,19 @@
                     <span th:if="${order.isPaid}">결제완료</span>
                 </div>
                 <div>
+                    <div>
+                        <span>PG결제가격 : </span>
+                        <span id="PaymentForm__pgPayPriceDisplay"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-<script>
+    <script>
         const $PaymentForm__useRestCash = $("#PaymentForm__useRestCash");
         const $PaymentForm__useRestCashAll = $("#PaymentForm__useRestCashAll");
+        const $PaymentForm__pgPayPriceDisplay = $("#PaymentForm__pgPayPriceDisplay");
 
         const tossPayments = TossPayments("test_ck_BE92LAa5PVbDMxDgLzB87YmpXyJj");
 
@@ -105,7 +111,7 @@
         }
     </script>
 
-<script>
+    <script>
         function PaymentForm__useRestCashFix() {
             let useRestCash = parseInt($PaymentForm__useRestCash.val());
 
@@ -127,7 +133,9 @@
                 $PaymentForm__useRestCashAll.prop('checked', false);
             }
 
+            const pgPayPrice = orderPayPrice - useRestCash;
 
+            $PaymentForm__pgPayPriceDisplay.text(pgPayPrice);
         }
 
         function PaymentForm__useRestCashAllChanged() {
@@ -145,8 +153,6 @@
         PaymentForm__useRestCashFix();
     </script>
 
-
-
-
+</main>
 </body>
 </html>
