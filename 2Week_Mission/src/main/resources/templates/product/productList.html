@@ -1,3 +1,7 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
 <table>
     <thead>
     <tr>
@@ -6,17 +10,34 @@
         <th>가격</th>
         <th>작성자</th>
         <th>작성날짜</th>
+        <th>장바구니 담기</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="product : ${products}">
-        <td th:text="${product.productId}"></td>
+        <td id="productId" name="productId" value="${product.productId}" th:text="${product.productId}"></td>
         <td th:text="${product.subject}"></td>
         <td th:text="${product.price}"></td>
         <td th:text="${product.memberId}"></td>
         <td th:text="${product.createdAt}"></td>
+        <td><button  class="btn btn-sm btn-primary" id="addcart" >추가</button></td>
     </tr>
     </tbody>
 </table>
 
+<script>
 
+$("#addcart").on("click",function(){
+
+        alert('test');
+
+        $.ajax({
+           type: "POST",
+            url: "/cart/add",
+            data : {
+            "productId" : 10
+            }
+        })
+    })
+
+</script>>

@@ -30,8 +30,8 @@ public class CartController {
     }
 
 
-    @RequestMapping("/add/{id}")
-    public String addToCart(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long productId
+    @PostMapping("/add")
+    public String addToCart(@AuthenticationPrincipal PrincipalDetails principalDetails,Long productId
                             , HttpServletResponse response) throws IOException {
         cartService.addItem(principalDetails.getMember(), productId ,response);
         return "/cart/list";
