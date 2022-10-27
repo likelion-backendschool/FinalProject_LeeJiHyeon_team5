@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
-@Table(name = "cart")
+@Table(name = "mybook")
 public class MyBook extends Base {
 
     @Id

@@ -22,6 +22,8 @@ public class ProductService {
 
         product.setSubject(productForm.getSubject());
         product.setPrice(productForm.getPrice());
+        product.setSalePrice(productForm.getSalePrice());
+        product.setWholesalePrice(productForm.getWholesalePrice());
         product.setKeyword(productForm.getKeyword());
         product.setMemberId(principalDetails.getMember().getMemberId());
 
