@@ -22,6 +22,8 @@ public class ProductService {
 
         product.setSubject(productForm.getSubject());
         product.setPrice(productForm.getPrice());
+        product.setSalePrice(productForm.getSalePrice());
+        product.setWholesalePrice(productForm.getWholesalePrice());
         product.setKeyword(productForm.getKeyword());
         product.setMemberId(principalDetails.getMember().getMemberId());
 
@@ -47,7 +49,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or #postDto.user.userId == authentication.principal.username")
+   // @PreAuthorize("hasRole('ROLE_ADMIN') or #postDto.user.userId == authentication.principal.username")
     public void delete(long productId) {
         Product product = productRepository.findByProductId(productId)
                 .orElseThrow(() -> new UsernameNotFoundException("일치하는 게시글을 찾을 수 없습니다."));

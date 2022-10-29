@@ -2,13 +2,7 @@ package com.example.demo.member.model;
 
 import com.example.demo.base.Base;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -44,16 +38,7 @@ public class Member extends Base {
     @Column(name = "auth_level")
     private Long authLevel;
 
-
-//    @Builder
-//    public Member( String username, String password, String email, String nickName ) {
-//
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.nickName = nickName;
-//
-//    }
-
+    @Column(name = "restCash")
+    private long restCash;
 
 }
